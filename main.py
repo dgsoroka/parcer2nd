@@ -26,6 +26,10 @@ def mealberry_parse(base_url, headers):
         divs = soup.find_all('div', attrs={'class': 'col-lg-4 col-sm-6 col-xxs-12 col-padd-clear card-list-item'})
         for div in divs:
             title = div.find('a', attrs={'data-type': 'text-ellipsis'}).text
+            weights = div.find_all('div', attrs={'class': 'text'})
+            articles = div.find_all('div', attrs={'class': 'value'})
+            print(weights)
+            print(articles)
             print(title)
 #             compensation = ""
 #             # compensation = div.find('div', attrs={'data-qa': 'vacancy-salary-compensation-type-net'})
