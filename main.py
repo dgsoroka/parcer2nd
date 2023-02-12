@@ -12,7 +12,8 @@ base_url = 'https://www.mealberry.ru/catalog/?brand[]=336&type[]=604&keepTypes=Y
 # pages = int(input('Укажите кол-во страниц для парсинга: '))
 
 food = []
-
+textWeight = []
+textArticle = []
 
 def mealberry_parse(base_url, headers):
     global end_with, start_with
@@ -28,9 +29,17 @@ def mealberry_parse(base_url, headers):
             title = div.find('a', attrs={'data-type': 'text-ellipsis'}).text
             weights = div.find_all('div', attrs={'class': 'text'})
             articles = div.find_all('div', attrs={'class': 'value'})
-            print(weights)
-            print(articles)
-            print(title)
+            for weight in weights:
+                textWeight.append(weight.find(text=re.compile(r'\d+\b')))
+            for article in articles:
+                textArticle.append(article.find(text=re.compile(r'\d+\b')))
+            if 'хом' in title:
+                print(textArticle)
+                print(textWeight)
+                print(title)
+            textArticle.clear()
+            textWeight.clear()
+
 #             compensation = ""
 #             # compensation = div.find('div', attrs={'data-qa': 'vacancy-salary-compensation-type-net'})
 #             # if compensation == None: # Если зарплата не указана
